@@ -59,6 +59,24 @@ unsigned int linked_list_lenght(linked_list_item* head)
     return head->count;
 }
 
+linked_list_item* linked_list_is_in_list(linked_list_item** head, linked_list_item* item_to_check)
+{
+    linked_list_item* current_item = *head;
+    
+    for (int i = 0; i < (*head)->count; i++)
+    {
+        if (item_to_check == current_item)
+        {
+            //printf("IS IN THE LIST\n");
+            return item_to_check;
+        }
+        current_item = current_item->next;
+    }
+
+    //printf("IT'S NOT IN THE LIST\n");
+    return NULL;
+}
+
 linked_list_item* linked_list_pop(linked_list_item** head)
 {
     if (!(*head))
@@ -86,6 +104,11 @@ linked_list_item* linked_list_remove_item(linked_list_item** head, linked_list_i
         return NULL;
     }
 
+    if (linked_list_is_in_list(head, item_to_remove))
+    {
+        return NULL;
+    }
+    
     linked_list_item* current_item = *head;
 
     if (current_item == item_to_remove)
@@ -99,6 +122,11 @@ linked_list_item* linked_list_remove_item(linked_list_item** head, linked_list_i
     {
         current_item = current_item->next;
         next_item = next_item->next;
+    }
+
+    if (*head)
+    {
+        (*head)->count--;
     }
 
     current_item->next = next_item->next;
@@ -121,19 +149,20 @@ void linked_list_print(linked_list_item* head)
 
 void linked_list_reverse(linked_list_item** head)
 {
+    linked_list_item* prev_item = NULL;
     linked_list_item* current_item = *head;
-    current_item->next = NULL;
-    linked_list_item* next_item = (*head)->next;
-    printf("hey");
+    linked_list_item* next_item = current_item->next;
+    int counter = 0;
 
     while(current_item)
-    {
-        next_item->next = current_item;
-        current_item = current_item->next;
-        printf("hey");
+    {   
+        next_item = current_item->next;
+        current_item->next = prev_item;
+        prev_item = current_item;
+        current_item = next_item;
     }
 
-    //head = *next_item;
+    *head = prev_item;
 }
 
 int main(int argc, char** argv)
@@ -160,17 +189,21 @@ int main(int argc, char** argv)
     int_item4.value = 104;
     linked_list_append(&head, LINKED_LIST(int_item4));                 
     
+    linked_int_item int_item5;
+    int_item5.value = 5;
+
     linked_list_print(head);
 
+    //linked_list_remove_item(&head, LINKED_LIST(int_item5));
+    
     //linked_list_pop(&head);
-
-    //linked_list_remove_item(&head, LINKED_LIST(int_item4));
-
-    //linked_list_print(head);
+    
+    linked_list_print(head);
 
     linked_list_reverse(&head);
     
     linked_list_print(head);
 
+    
     return 0;
 }
