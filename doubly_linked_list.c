@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define DOUBLY_LINKED_LIST(x) &(x.list_item)      //MACRO to define something in the code
 
@@ -232,6 +233,17 @@ void doubly_linked_list_print(doubly_linked_list_item* head)
     }
 }
 
+void doubly_linked_list_shuffle(doubly_linked_list_item** head)
+{
+    printf("----------------\nshuffling\n----------------\n");
+    srand(time(NULL));
+
+    for (int i = (*head)->count - 1; i > 0; i--)
+    {
+        printf("shuffle algh\n");
+    }
+}
+
 int main(int argc, char** argv)
 {
     doubly_linked_list_item* head = NULL;      
@@ -269,6 +281,8 @@ int main(int argc, char** argv)
 
     //     free(node_to_free);
     // }
+
+    doubly_linked_list_shuffle(&head);
 
     return 0;
 }

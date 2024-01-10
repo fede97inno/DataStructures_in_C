@@ -79,6 +79,13 @@ int main(int argc, char** argv)
 
     memset(&my_set, 0, sizeof(struct aiv_set));  //zeros in the 3 element memory, do what is under it
     
+    // myset.hashmap[0].key = NULL;
+    // myset.hashmap[0].key_len = 0;    
+    // myset.hashmap[1].key = NULL;
+    // myset.hashmap[1].key_len = 0;   
+    // myset.hashmap[2].key = NULL;
+    // myset.hashmap[2].key_len = 0;
+
     aiv_set_insert(&my_set, "Hello");
     aiv_set_insert(&my_set, "Hello2");
     aiv_set_insert(&my_set, "Test");
