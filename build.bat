@@ -1,0 +1,1 @@
+clang.exe -o .\bin\linked_list.exe .\linked_list.c

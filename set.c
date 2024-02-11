@@ -58,7 +58,7 @@ void aiv_set_find(struct aiv_set* set, const char* key)
 
     const size_t index = hash % HASHMAP_SIZE;
 
-    printf("hash of %s = %llu (index : %llu)\n", key, hash, index);                 //llu = long long unsigned = size_t
+    //printf("hash of %s = %llu (index : %llu)\n", key, hash, index);                 //llu = long long unsigned = size_t
 
     for (size_t i = 0; i < HASHMAP_SIZE_LIST; i++)
     {
@@ -67,6 +67,29 @@ void aiv_set_find(struct aiv_set* set, const char* key)
             if (set->hashmap[index][i].key_len == key_len && !memcmp(set->hashmap[index][i].key, key, key_len) )
             {
                 printf("FOUND %s at index %llu slot %llu\n",key, index, i);
+                return;
+            }
+        }
+    }
+}
+
+void aiv_set_remove(struct aiv_set* set, const char* key)
+{
+    const size_t key_len = strlen(key);
+    
+    const size_t hash = djb33x_hash(key, key_len);      //first thing hash the key, we use strlen cause if we use size of will give the size of the pointer that is 8
+
+    const size_t index = hash % HASHMAP_SIZE;
+
+    for (size_t i = 0; i < HASHMAP_SIZE_LIST; i++)
+    {
+        if (set->hashmap[index][i].key_len > 0)
+        {
+            if (set->hashmap[index][i].key_len == key_len && !memcmp(set->hashmap[index][i].key, key, key_len) )
+            {
+                set->hashmap[index][i].key = NULL;
+                set->hashmap[index][i].key_len = 0;
+                printf("REMOVED %s at index %llu slot %llu\n",key, index, i);
                 return;
             }
         }
@@ -92,5 +115,10 @@ int main(int argc, char** argv)
     aiv_set_insert(&my_set, "Foobar");
 
     aiv_set_find(&my_set, "Hello2");
+
+    aiv_set_remove(&my_set, "Hello2");
+
+    aiv_set_find(&my_set, "Hello2");
+
     return 0;
 }
