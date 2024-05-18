@@ -1,1 +1,1 @@
-clang.exe -o .\bin\linked_list.exe .\linked_list.c
+clang.exe -o .\bin\dictionary.exe .\dictionary.c
