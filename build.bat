@@ -1,1 +1,1 @@
-clang.exe -o .\bin\dictionary.exe .\dictionary.c
+clang.exe -o .\bin\dictionary_all_values.exe .\dictionary_all_values.c
