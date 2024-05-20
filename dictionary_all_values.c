@@ -112,6 +112,10 @@ int main()
     float float_value = 5.0f;
 
     aiv_dict_insert(&my_dict, "Pollo", &int_value,sizeof(int));
+    aiv_dict_insert(&my_dict, "Pollo", &int_value,sizeof(int));
     aiv_dict_insert(&my_dict, "Pallas", &float_value, sizeof(float));
+    aiv_dict_remove(&my_dict, "Pollo");
+    aiv_dict_insert(&my_dict, "Pollo", &int_value,sizeof(int));
+
     return 0;
 }
